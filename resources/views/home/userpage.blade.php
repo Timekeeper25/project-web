@@ -115,29 +115,25 @@
                         </form>
 
                         @if (Route::has('login'))
-
-                        @auth
-                        <li class="nav-item">
-                            <a class="dropdown-item" href="{{ route('custom-logout') }}"
-                                onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-                        </li>
-
-                        <form id="logout-form" action="{{ route('custom-logout') }}" method="GET" class="d-none">
-                            @csrf
-                        </form>
-                        
-                        {{-- @else
-                        <li class="nav-item">
-                            <a href="{{ route('login') }}" class="btn btn-primary" >Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('register') }}" class="btn btn-success">Register</a>
-                        </li> --}}
-                        @endauth
-                        
+                           @auth
+                              <li class="nav-item">
+                                 <a class="dropdown-item" href="{{ route('custom-logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                 </a>
+                              </li>
+                              <form id="logout-form" action="{{ route('custom-logout') }}" method="GET" class="d-none">
+                                 @csrf
+                              </form>
+                              @else
+                              <li class="nav-item">
+                                 <a href="{{ route('login') }}" class="btn btn-primary" >Login</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a href="{{ route('register') }}" class="btn btn-success">Register</a>
+                              </li>
+                           @endauth
                         @endif
 
                      </ul>

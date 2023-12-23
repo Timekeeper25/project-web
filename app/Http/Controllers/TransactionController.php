@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
+use App\Models\transactionDetail;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -15,6 +17,12 @@ class TransactionController extends Controller
         $data['judul'] = 'Data-Data Transaksi';
         return view('transaction_index', $data);
 
+    }
+
+    public function showDetail($transactions_id)
+    {
+        $transactionDetail = Transaction::where('transactions_id', $transactions_id)->first();
+        return view('transactionDetail.index', compact('transactionDetail'));
     }
 
     /**

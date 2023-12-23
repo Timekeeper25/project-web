@@ -2,7 +2,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class=" col md-12">
+        <div class="col md-12">
             <div class="card">
                 <div class="card-header">
                     {{ $judul }}
@@ -12,27 +12,18 @@
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
-                                <td>ID</td>
+                                <td>Kode Transaksi</td>
                                 <td>Total Harga</td>
-                                <td>Created</td>
                                 <td>Aksi</td>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($transaction as $item)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $item->total_harga }}</td>
-                                    <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->transactions_id }}</td>
+                                    <td>Rp. {{ number_format($item->total_harga, 0, ',', '.') }}</td>
                                     <td>
-                                        <a href="/transaction/{{ $item->id }}/edit" class="btn btn-primary">
-                                            Edit
-                                        </a>
-                                        <form href="/transaction/{{ $item->id }}" method="POST" class="d-inline">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger">Hapus</button>
-                                        </form>
+                                        <a href="{{ route('transactionDetail', ['transactions_id' => $item->transactions_id]) }}">Detail</a>
                                     </td>
                                 </tr>
                             @endforeach

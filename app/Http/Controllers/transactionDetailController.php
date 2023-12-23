@@ -42,7 +42,6 @@ class transactionDetailController extends Controller
             'kode_pelanggan' => 'required',
             'kode_barang' => 'required',
             'jumlah_barang' => 'required',
-            'harga_barang' => 'required',
         ]);
         $transactionDetail = new \App\Models\transactionDetail();
         $transactionDetail -> fill($validasiData);
@@ -80,7 +79,6 @@ class transactionDetailController extends Controller
             'kode_pelanggan' => 'required',
             'kode_barang' => 'required',
             'jumlah_barang' => 'required',
-            'harga_barang' => 'required', 
 
         ]);
         $transactionDetail = \App\Models\transactionDetail::findOrFail($id);
@@ -101,17 +99,4 @@ class transactionDetailController extends Controller
         flash('Data berhasil Dihapus');
         return back();
     }
-
-    public function getHargaBarang($kode_barang)
-    {
-        $stock = Stock::where('kode_barang', $kode_barang)->first();
-
-        if ($stock) {
-            return response()->json(['harga_barang' => $stock->harga_barang]);
-        } else {
-            return response()->json(['harga_barang' => null]);
-        }
-    }
-    
-
 }

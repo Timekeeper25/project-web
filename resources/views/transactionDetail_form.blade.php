@@ -41,11 +41,6 @@
                                 value="{{ old('jumlah_barang')}}">
                                 <span class="text-danger"> {{ $errors->first('jumlah_barang') }}</span>
                             </div>
-                            <div class="form-group mt-1">
-                                <label for="my-input">Harga</label>
-                                <input type="text" class="form-control" name="harga" value="{{ old('harga')}}">
-                            </div>
-
                             <div class="form-group mt-2">
                                 <button type="submit" class="btn btn-primary">SIMPAN</button>
                             </div>
@@ -55,36 +50,5 @@
             </div>
         </div>
     </div>
-    <script>
-        
-        document.addEventListener("DOMContentLoaded", function() {
-        const kodeBarangInput = document.querySelector('[name="kode_barang"]');
-        const hargaInput = document.querySelector('[name="harga"]');
-        const errorHarga = document.querySelector('#error-harga');
-
-        kodeBarangInput.addEventListener("blur", function() {
-            const kodeBarang = kodeBarangInput.value;
-
-            // Make an AJAX request to get the harga_barang based on the kode_barang
-            fetch(`/getHargaBarang/${kode_barang}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.harga_barang !== null) {
-                    hargaInput.value = data.harga_barang;
-                    errorHarga.innerText = ''; // Clear error message if any
-                } else {
-                    // Display an error message if harga_barang is not found
-                    hargaInput.value = '';
-                    errorHarga.innerText = 'Harga barang tidak ditemukan';
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching harga barang:', error);
-                errorHarga.innerText = 'Error fetching harga barang';
-            });
-        });
-    });
-    </script>
-
 @endsection
 

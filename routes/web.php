@@ -22,9 +22,9 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// route::get('/',[HomeController::class, 'index']);
-
+route::get('/',[HomeController::class, 'index']);
 route::get('/redirect', [HomeController::class, 'redirect']);
+
 Auth::routes();
 
 Route::resource('stock', StockController::class);
@@ -34,7 +34,9 @@ Route::resource('incomes', IncomesController::class);
 Route::resource('transaction', TransactionController::class);
 Route::resource('transactionDetail', transactionDetailController::class);
 Route::post('/upload', 'UploadController@upload');
-Route::get('/getHargaBarang/{kode_barang}', 'transactionDetailController@getHargaBarang');
+// Route::get('/getHargaBarang/{kode_barang}', 'transactionDetailController@getHargaBarang');
+Route::get('/transactionDetail/{transactions_id}', 'TransactionController@showDetail')->name('transactionDetail');
+
 
 Route::get('/custom-logout', [AuthController::class, 'customLogout'])->name('custom-logout');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
