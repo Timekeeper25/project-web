@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use App\Models\Transaction;
+use App\Models\transactionDetail;
 
 class transactionDetailController extends Controller
 {
@@ -27,10 +29,10 @@ class transactionDetailController extends Controller
         $data['method'] = 'post';
         $data['tombol'] = 'simpan';
         $data['judul'] = 'Tambah Transaksi';
-
+        
         return view('transactionDetail_form', $data);
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */
@@ -46,7 +48,7 @@ class transactionDetailController extends Controller
         $transactionDetail = new \App\Models\transactionDetail();
         $transactionDetail -> fill($validasiData);
         $transactionDetail -> save();
-
+        
         flash('Data Berhasil Disimpan');
         return back();
     }
@@ -67,7 +69,7 @@ class transactionDetailController extends Controller
         $data['transactionDetail'] = \App\Models\transactionDetail::findOrFail($id);
         return view('transactionDetail_edit', $data);
     }
-
+    
     /**
      * Update the specified resource in storage.
      */
@@ -79,7 +81,7 @@ class transactionDetailController extends Controller
             'kode_pelanggan' => 'required',
             'kode_barang' => 'required',
             'jumlah_barang' => 'required',
-
+            
         ]);
         $transactionDetail = \App\Models\transactionDetail::findOrFail($id);
         $transactionDetail -> fill($validasiData);
@@ -88,7 +90,7 @@ class transactionDetailController extends Controller
         flash('Data Berhasil Diubah');
         return redirect()->route('transactionDetail.index');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */
@@ -98,5 +100,13 @@ class transactionDetailController extends Controller
         $transactionDetail->delete();
         flash('Data berhasil Dihapus');
         return back();
+    }
+    
+    public function transactionDetail($transactions_id)
+    {
+        $transactionDetail = Transaction::find($transactions_id);
+        $data['transactionDetail'] = \App\Models\transactionDetail::where('transactions_id', 'like', '%' . $transactionDetail . '%')
+            ->paginate(10);
+        return view('transactionDetail.index', compact('transactionDetail'));
     }
 }

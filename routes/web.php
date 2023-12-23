@@ -22,20 +22,27 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-route::get('/',[HomeController::class, 'index']);
 route::get('/redirect', [HomeController::class, 'redirect']);
+route::get('/',[HomeController::class, 'index']);
 
 Auth::routes();
 
+
+Route::get('/transactionDetail/{transactions_id}', [transactionDetailController::class, 'transactionDetail']);
+Route::resource('transactionDetail', transactionDetailController::class);
 Route::resource('stock', StockController::class);
 Route::resource('cashier', CashierController::class);
 Route::resource('customer', CustomerController::class);
 Route::resource('incomes', IncomesController::class);
 Route::resource('transaction', TransactionController::class);
-Route::resource('transactionDetail', transactionDetailController::class);
+
+Route::prefix('admin')->group(function () {
+});
+// Tambahkan prefix pada route resource
+
+// Route::get('/transactionDetail/{transactions_id}', [TransactionController::class, 'transactionDetail']);
+// Route::resource('transactionDetail', transactionDetailController::class);
 Route::post('/upload', 'UploadController@upload');
-// Route::get('/getHargaBarang/{kode_barang}', 'transactionDetailController@getHargaBarang');
-Route::get('/transactionDetail/{transactions_id}', 'TransactionController@showDetail')->name('transactionDetail');
 
 
 Route::get('/custom-logout', [AuthController::class, 'customLogout'])->name('custom-logout');

@@ -19,11 +19,11 @@ class TransactionController extends Controller
 
     }
 
-    public function showDetail($transactions_id)
-    {
-        $transactionDetail = Transaction::where('transactions_id', $transactions_id)->first();
-        return view('transactionDetail.index', compact('transactionDetail'));
-    }
+    // public function transactionDetail($transactions_id)
+    // {
+    //     $transactionDetail = Transaction::where('transactions_id', $transactions_id)->first();
+    //     return view('transactionDetail.index', compact('transactionDetail'));
+    // }
 
     /**
      * Show the form for creating a new resource.
