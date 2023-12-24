@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomesController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\transactionDetailController;
+use App\Http\Middleware\Admin;
+use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,14 +29,17 @@ route::get('/',[HomeController::class, 'index']);
 
 Auth::routes();
 
+Route::middleware(Authenticate::class)->group(function () {
+    Route::resource('transactionDetail', transactionDetailController::class)->middleware(Admin::class);
+    Route::get('transactionDetail/{transactions_id}', 'transactionDetailController@show')->name('transactionDetail.show');
+    Route::resource('stock', StockController::class)->middleware(Admin::class);
+    Route::resource('cashier', CashierController::class)->middleware(Admin::class);
+    Route::resource('customer', CustomerController::class)->middleware(Admin::class);
+    Route::resource('incomes', IncomesController::class)->middleware(Admin::class);
+    Route::resource('transaction', TransactionController::class)->middleware(Admin::class);
+});
 
-Route::get('/transactionDetail/{transactions_id}', [transactionDetailController::class, 'transactionDetail']);
-Route::resource('transactionDetail', transactionDetailController::class);
-Route::resource('stock', StockController::class);
-Route::resource('cashier', CashierController::class);
-Route::resource('customer', CustomerController::class);
-Route::resource('incomes', IncomesController::class);
-Route::resource('transaction', TransactionController::class);
+
 
 Route::prefix('admin')->group(function () {
 });

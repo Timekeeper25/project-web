@@ -56,9 +56,10 @@ class transactionDetailController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($transactions_id)
     {
-        //
+        $transactionDetail = transactionDetail::with('transaction')->where('transactions_id', $transactions_id)->get();
+        return view('transactionDetail.detail', compact('transactionDetail'));
     }
 
     /**
@@ -66,8 +67,7 @@ class transactionDetailController extends Controller
      */
     public function edit(string $id)
     {
-        $data['transactionDetail'] = \App\Models\transactionDetail::findOrFail($id);
-        return view('transactionDetail_edit', $data);
+
     }
     
     /**
@@ -102,11 +102,12 @@ class transactionDetailController extends Controller
         return back();
     }
     
-    public function transactionDetail($transactions_id)
-    {
-        $transactionDetail = Transaction::find($transactions_id);
-        $data['transactionDetail'] = \App\Models\transactionDetail::where('transactions_id', 'like', '%' . $transactionDetail . '%')
-            ->paginate(10);
-        return view('transactionDetail.index', compact('transactionDetail'));
-    }
+    // public function transactionDetail($transaction_id)
+    // {
+    //     $transaction = Transaction::find($transaction_id);
+    
+    //     $transactionDetails = transactionDetail::where('transactions_id', $transaction_id)->paginate(10);
+    
+    //     return view('transactionDetail.detail', compact('transaction', 'transactionDetails'));
+    // }    
 }

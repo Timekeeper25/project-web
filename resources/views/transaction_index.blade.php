@@ -23,7 +23,7 @@
                                     <td>{{ $item->transactions_id }}</td>
                                     <td>Rp. {{ number_format($item->total_harga, 0, ',', '.') }}</td>
                                     <td>
-                                        <a href="{{ url('transactionDetail', $item->transactions_id) }}">Detail</a>
+                                        <a href="{{ route('transactionDetail.show', $item->transactions_id) }}" class="btn btn-primary">Detail</a>
                                     </td>
                                 </tr>
                             @endforeach

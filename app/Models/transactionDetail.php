@@ -15,13 +15,8 @@ class transactionDetail extends Model
         return $this->belongsTo(\App\Models\Stock::class, 'kode_barang');
     }
 
-    public function setHargaAttribute($value)
+    public function transaction()
     {
-        // Accessing the related Stock model and getting harga_barang
-        $harga_barang = $this->stock->harga_barang;
-
-        // Setting the value of the harga column in the transactionDetail_form
-        $this->attributes['harga'] = $harga_barang;
-    }
-
+    return $this->belongsTo(Transaction::class, 'transactions_id');
+    }   
 }
