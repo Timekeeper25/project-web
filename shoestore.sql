@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2023 at 01:32 AM
+-- Generation Time: Dec 24, 2023 at 05:12 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -92,15 +92,8 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `incomes` (
   `id` int(10) NOT NULL,
-  `kode_transaksi` varchar(10) NOT NULL,
-  `kode_pelanggan` varchar(10) NOT NULL,
-  `kode_kasir` varchar(10) NOT NULL,
-  `kode_barang` varchar(10) NOT NULL,
-  `jumlah_barang` int(10) NOT NULL,
-  `total` int(10) NOT NULL,
-  `modal` int(10) NOT NULL,
   `laba` int(10) NOT NULL,
-  `created_at` datetime NOT NULL,
+  `created_at` date NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -108,9 +101,8 @@ CREATE TABLE `incomes` (
 -- Dumping data for table `incomes`
 --
 
-INSERT INTO `incomes` (`id`, `kode_transaksi`, `kode_pelanggan`, `kode_kasir`, `kode_barang`, `jumlah_barang`, `total`, `modal`, `laba`, `created_at`, `updated_at`) VALUES
-(1, 'T01', 'P01', 'K01', 'B01', 2, 20000, 8000, 4000, '2023-12-11 15:12:07', '2023-12-11 15:12:07'),
-(2, 'T02', 'P02', 'K02', 'B02', 1, 150000, 120000, 30000, '2023-12-11 15:13:44', '2023-12-11 15:13:44');
+INSERT INTO `incomes` (`id`, `laba`, `created_at`, `updated_at`) VALUES
+(3, 1270000, '2023-12-24', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -230,11 +222,25 @@ INSERT INTO `stocks` (`id`, `kode_barang`, `nama_barang`, `gambar_barang`, `stok
 --
 
 CREATE TABLE `transactions` (
-  `id` varchar(10) NOT NULL,
-  `total_harga` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `transactions_id` varchar(10) NOT NULL,
+  `total_harga` int(10) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `transactions_id`, `total_harga`, `created_at`, `updated_at`) VALUES
+(1, 'T01', 500000, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'T02', 720000, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'T03', 240000, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 'T04', 670000, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 'T05', 360000, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 'T06', 240000, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 'T08', 220000, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -249,26 +255,79 @@ CREATE TABLE `transaction_details` (
   `kode_pelanggan` varchar(10) DEFAULT NULL,
   `kode_barang` varchar(10) DEFAULT NULL,
   `jumlah_barang` int(10) DEFAULT NULL,
+  `gambar` varchar(255) NOT NULL,
+  `nama_barang` varchar(255) NOT NULL,
   `harga` int(10) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `transaction_details`
+--
+
+INSERT INTO `transaction_details` (`id`, `transactions_id`, `kode_kasir`, `kode_pelanggan`, `kode_barang`, `jumlah_barang`, `gambar`, `nama_barang`, `harga`, `created_at`, `updated_at`) VALUES
+(14, 'T01', 'K01', 'P01', 'B03', 2, 'adidas.png', 'Adidas', 500000, '2023-12-23 02:56:51', '2023-12-23 02:56:51'),
+(15, 'T02', 'K02', 'P02', 'B03', 2, 'adidas.png', 'Adidas', 500000, '2023-12-23 02:59:48', '2023-12-23 02:59:48'),
+(17, 'T02', 'K02', 'P02', 'B01', 1, 'sneakers.png', 'Sneakers', 110000, '2023-12-23 03:32:55', '2023-12-23 03:32:55'),
+(18, 'T02', 'K02', 'P02', 'B01', 2, 'sneakers.png', 'Sneakers', 220000, '2023-12-23 03:37:28', '2023-12-23 03:37:28'),
+(19, 'T03', 'K02', 'P03', 'B04', 2, '1702769600_converse.png', 'Converse', 240000, '2023-12-23 04:18:38', '2023-12-23 04:18:38'),
+(20, 'T04', 'K03', 'P03', 'B01', 2, 'sneakers.png', 'Sneakers', 220000, '2023-12-23 05:30:30', '2023-12-23 05:30:30'),
+(21, 'T05', 'K02', 'P02', 'B04', 3, '1702769600_converse.png', 'Converse', 360000, '2023-12-24 02:03:51', '2023-12-24 02:03:51'),
+(22, 'T06', 'K03', 'P03', 'B04', 2, '1702769600_converse.png', 'Converse', 240000, '2023-12-24 02:21:13', '2023-12-24 02:21:13'),
+(23, 'T04', 'K02', 'P01', 'B02', 3, 'nike.png', 'Nike', 450000, '2023-12-24 04:01:53', '2023-12-24 04:01:53'),
+(24, 'T08', 'K02', 'P01', 'B01', 2, 'sneakers.png', 'Sneakers', 220000, '2023-12-24 04:02:53', '2023-12-24 04:02:53');
+
+--
 -- Triggers `transaction_details`
 --
 DELIMITER $$
+CREATE TRIGGER `SET_HARGA_GAMBAR_NAMA` BEFORE INSERT ON `transaction_details` FOR EACH ROW BEGIN
+    DECLARE barang_harga INT;
+    DECLARE v_gambar VARCHAR(255);
+    DECLARE namaB VARCHAR(255);
+    
+    -- Ambil harga dari tabel barang
+    SELECT harga_barang,gambar_barang,nama_barang INTO barang_harga,v_gambar,namaB FROM stocks WHERE kode_barang = NEW.kode_barang;
+    
+    -- Hitung total harga dan set kolom total_harga di tabel transaksi
+    SET NEW.harga = barang_harga * NEW.jumlah_barang;
+    SET NEW.gambar = v_gambar;
+    SET NEW.nama_barang = namaB;
+END
+$$
+DELIMITER ;
+DELIMITER $$
 CREATE TRIGGER `jumlah_total_harga` AFTER INSERT ON `transaction_details` FOR EACH ROW BEGIN
     -- Memeriksa apakah ID sudah ada di Tabel transactions
-    IF EXISTS (SELECT 1 FROM transactions WHERE id = NEW.transactions_id) THEN
+    IF EXISTS (SELECT 1 FROM transactions WHERE transactions_id = NEW.transactions_id) THEN
         -- Jika sudah ada, update total_harga
-        UPDATE TabelA
+        UPDATE transactions
         SET total_harga = total_harga + NEW.harga
-        WHERE id = NEW.transactions_id;
+        WHERE transactions_id = NEW.transactions_id;
     ELSE
         -- Jika belum ada, masukkan data baru
-        INSERT INTO transactions (id, total_harga)
+        INSERT INTO transactions (transactions_id, total_harga)
         VALUES (NEW.transactions_id, NEW.harga);
+    END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `set_keuntungan_hari_ini` AFTER INSERT ON `transaction_details` FOR EACH ROW BEGIN
+    DECLARE tanggal DATE;
+    SET tanggal = (SELECT CONVERT(created_at, DATE) FROM transaction_details WHERE id = NEW.id);
+
+    -- Memeriksa apakah tanggal sudah ada di Tabel incomes
+    IF EXISTS (SELECT 1 FROM incomes WHERE created_at = tanggal) THEN
+        -- Jika sudah ada, update laba
+        UPDATE incomes
+        SET laba = laba + NEW.harga
+        WHERE created_at = tanggal;
+    ELSE
+        -- Jika belum ada, masukkan data baru
+        INSERT INTO incomes (created_at, laba)
+        VALUES (tanggal, NEW.harga);
     END IF;
 END
 $$
@@ -377,8 +436,7 @@ ALTER TABLE `stocks`
 -- Indexes for table `transactions`
 --
 ALTER TABLE `transactions`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `transaction_details`
@@ -386,7 +444,7 @@ ALTER TABLE `transactions`
 ALTER TABLE `transaction_details`
   ADD PRIMARY KEY (`id`),
   ADD KEY `transactions_id` (`transactions_id`),
-  ADD KEY `kode_barang` (`kode_barang`);
+  ADD KEY `fk_kode_barang` (`kode_barang`);
 
 --
 -- Indexes for table `users`
@@ -421,7 +479,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `incomes`
 --
 ALTER TABLE `incomes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -442,10 +500,16 @@ ALTER TABLE `stocks`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `transaction_details`
 --
 ALTER TABLE `transaction_details`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -461,7 +525,7 @@ ALTER TABLE `users`
 -- Constraints for table `transaction_details`
 --
 ALTER TABLE `transaction_details`
-  ADD CONSTRAINT `transaction_details_ibfk_1` FOREIGN KEY (`transactions_id`) REFERENCES `transactions` (`id`),
+  ADD CONSTRAINT `fk_kode_barang` FOREIGN KEY (`kode_barang`) REFERENCES `stocks` (`kode_barang`),
   ADD CONSTRAINT `transaction_details_ibfk_2` FOREIGN KEY (`kode_barang`) REFERENCES `stocks` (`kode_barang`);
 COMMIT;
 
