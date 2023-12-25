@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Stock;
+use App\Models\Cart;
 use App\Models\User;
 
 class HomeController extends Controller
 {
+    public function index() {
+        $stock=Stock::all();
+        return view('home.userpage', compact('stock'));
+    }
+
     public function redirect()
     {
         $usertype=Auth::user()->usertype;
@@ -18,12 +25,60 @@ class HomeController extends Controller
         }
         if($usertype=='0') 
         {
-            return view('home.userpage');
+            $stock=Stock::all();
+            return view('home.userpage', compact('stock'));
         }
     }
-    public function index() {
-        return view('home.userpage');
+    
+    public function add_cart(Request $request,$id) 
+    {
+        if(Auth::id()) 
+        {
+            $user = Auth::user();
+            $stock = Stock::find($id);
+            $cart = new cart;
+
+            // masuk informasi user
+            $cart->nama = $user->name;
+            $cart->email = $user->email;
+            $cart->alamat = $user->alamat;
+            $cart->nomor_hp = $user->nomor_hp;
+            $cart->id_user = $user->id;
+            
+            //masuk informasi barang
+            $cart->nama_barang = $stock->nama_barang;
+            $cart->harga = $stock->harga_barang * $request->quantity;
+            $cart->gambar = $stock->gambar_barang;
+            $cart->kode_barang = $stock->kode_barang;
+
+            //quantity
+            $cart->jumlah = $request->quantity;
+
+            $cart->save();
+            return redirect()->back();
+
+        }
+
+        else
+        {
+            return redirect('login'); 
+        }
     }
+
+    public function show_cart()
+    {
+        $id = Auth::user()->id;
+        $cart=Cart::where('id_user', '=', $id)->get();
+        return view('home.showcart', compact('cart'));
+    }
+
+    public function remove_cart($id)
+    {
+        $cart=Cart::find($id);
+        $cart->delete();
+        return redirect()->back();
+    }
+
     /**
      * Create a new controller instance.
      *

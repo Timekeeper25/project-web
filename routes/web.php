@@ -26,6 +26,9 @@ use Illuminate\Support\Facades\Auth;
 
 route::get('/redirect', [HomeController::class, 'redirect']);
 route::get('/',[HomeController::class, 'index']);
+Route::post('add_cart/{id}', [HomeController::class, 'add_cart']);
+Route::get('show_cart', [HomeController::class, 'show_cart']);
+Route::get('remove_cart/{id}', [HomeController::class, 'remove_cart']);
 
 Auth::routes();
 
