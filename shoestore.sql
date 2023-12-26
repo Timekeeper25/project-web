@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 24, 2023 at 05:12 AM
+-- Generation Time: Dec 26, 2023 at 03:24 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `shoestore`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carts`
+--
+
+CREATE TABLE `carts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
+  `nomor_hp` varchar(255) DEFAULT NULL,
+  `nama_barang` varchar(255) DEFAULT NULL,
+  `jumlah` varchar(255) DEFAULT NULL,
+  `harga` varchar(255) DEFAULT NULL,
+  `gambar` varchar(255) DEFAULT NULL,
+  `id_user` varchar(255) DEFAULT NULL,
+  `kode_barang` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -44,29 +66,6 @@ CREATE TABLE `cashiers` (
 INSERT INTO `cashiers` (`id`, `kode_kasir`, `nama_kasir`, `jenis_kelamin`, `nomor_hp`, `created_at`, `updated_at`) VALUES
 (1, 'K01', 'Aloy', 'L', '081366881200', '2023-12-10 15:22:21', '2023-12-10 15:22:21'),
 (2, 'K02', 'Bila', 'L', '081365454321', '2023-12-10 14:33:16', '2023-12-10 14:33:16');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `customers`
---
-
-CREATE TABLE `customers` (
-  `id` int(11) NOT NULL,
-  `nama_pelanggan` varchar(10) NOT NULL,
-  `nama_pelanggan` varchar(255) NOT NULL,
-  `alamat_pelanggan` varchar(255) NOT NULL,
-  `nomor_hp` varchar(15) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `customers`
---
-
-INSERT INTO `customers` (`id`, `nama_pelanggan`, `nama_pelanggan`, `alamat_pelanggan`, `nomor_hp`, `created_at`, `updated_at`) VALUES
-(1, 'P01', 'Cindy Kasih', 'Jl.Sumatera', '081243560987', '2023-12-10 14:44:06', '2023-12-10 14:44:06');
 
 -- --------------------------------------------------------
 
@@ -102,7 +101,8 @@ CREATE TABLE `incomes` (
 --
 
 INSERT INTO `incomes` (`id`, `laba`, `created_at`, `updated_at`) VALUES
-(3, 1270000, '2023-12-24', '0000-00-00 00:00:00');
+(3, 1270000, '2023-12-24', '0000-00-00 00:00:00'),
+(4, 600000, '2023-12-26', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -121,13 +121,74 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
-(3, '2014_10_12_100000_create_password_resets_table', 1),
-(4, '2019_08_19_000000_create_failed_jobs_table', 1),
-(5, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (6, '2014_10_12_200000_add_two_factor_columns_to_users_table', 2),
-(7, '2023_12_16_074332_create_sessions_table', 2);
+(7, '2023_12_16_074332_create_sessions_table', 2),
+(23, '2014_10_12_000000_create_users_table', 3),
+(24, '2014_10_12_100000_create_password_reset_tokens_table', 3),
+(25, '2014_10_12_100000_create_password_resets_table', 3),
+(26, '2019_08_19_000000_create_failed_jobs_table', 3),
+(27, '2019_12_14_000001_create_personal_access_tokens_table', 3),
+(28, '2023_12_25_012806_create_carts_table', 3),
+(29, '2023_12_25_231306_create_orders_table', 3),
+(30, '2023_12_25_231400_create_order_details_table', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` varchar(255) NOT NULL,
+  `status_pembayaran` varchar(255) NOT NULL DEFAULT 'Belum Dibayar',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `order_id`, `status_pembayaran`, `created_at`, `updated_at`) VALUES
+(5, '49145680-b5e1-454f-bb27-14abecb7de4e', 'Belum Dibayar', '2023-12-25 17:50:56', '2023-12-25 17:50:56'),
+(6, 'a902f3e5-503a-444e-9f40-9d5d13b4ad37', 'Belum Dibayar', '2023-12-25 17:55:24', '2023-12-25 17:55:24'),
+(7, '7d7f9403-115d-4254-923c-e5ec726ecd72', 'Belum Dibayar', '2023-12-25 17:58:10', '2023-12-25 17:58:10'),
+(8, '9e477288-8a7f-4a6a-95e1-49ed4724f3f5', 'Belum Dibayar', '2023-12-25 18:09:14', '2023-12-25 18:09:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_details`
+--
+
+CREATE TABLE `order_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` varchar(255) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
+  `id_user` varchar(255) NOT NULL,
+  `nama_barang` varchar(255) NOT NULL,
+  `jumlah` varchar(255) NOT NULL,
+  `harga` varchar(255) NOT NULL,
+  `gambar` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`id`, `order_id`, `nama`, `email`, `alamat`, `id_user`, `nama_barang`, `jumlah`, `harga`, `gambar`, `created_at`, `updated_at`) VALUES
+(1, '49145680-b5e1-454f-bb27-14abecb7de4e', 'Raihan', 'rehan@gmail.com', 'Jalan Pahlawan', '1', 'Sneakers', '1', '110000', 'sneakers.png', '2023-12-25 17:50:56', '2023-12-25 17:50:56'),
+(2, '49145680-b5e1-454f-bb27-14abecb7de4e', 'Raihan', 'rehan@gmail.com', 'Jalan Pahlawan', '1', 'Nike', '1', '150000', 'nike.png', '2023-12-25 17:50:56', '2023-12-25 17:50:56'),
+(3, '49145680-b5e1-454f-bb27-14abecb7de4e', 'Raihan', 'rehan@gmail.com', 'Jalan Pahlawan', '1', 'Adidas', '2', '500000', 'adidas.png', '2023-12-25 17:50:56', '2023-12-25 17:50:56'),
+(4, 'a902f3e5-503a-444e-9f40-9d5d13b4ad37', 'User', 'user@gmail.com', 'Jalan Pahlawan', '2', 'Nike', '2', '300000', 'nike.png', '2023-12-25 17:55:24', '2023-12-25 17:55:24'),
+(5, 'a902f3e5-503a-444e-9f40-9d5d13b4ad37', 'User', 'user@gmail.com', 'Jalan Pahlawan', '2', 'Converse', '1', '120000', '1702769600_converse.png', '2023-12-25 17:55:24', '2023-12-25 17:55:24'),
+(6, '7d7f9403-115d-4254-923c-e5ec726ecd72', 'User', 'user@gmail.com', 'Jalan Pahlawan', '2', 'Nike', '1', '150000', 'nike.png', '2023-12-25 17:58:10', '2023-12-25 17:58:10'),
+(7, '7d7f9403-115d-4254-923c-e5ec726ecd72', 'User', 'user@gmail.com', 'Jalan Pahlawan', '2', 'Sneakers', '1', '110000', 'sneakers.png', '2023-12-25 17:58:10', '2023-12-25 17:58:10');
 
 -- --------------------------------------------------------
 
@@ -240,7 +301,8 @@ INSERT INTO `transactions` (`id`, `transactions_id`, `total_harga`, `created_at`
 (6, 'T04', 670000, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (7, 'T05', 360000, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (8, 'T06', 240000, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(9, 'T08', 220000, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(9, 'T08', 220000, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 'T09', 600000, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -252,7 +314,7 @@ CREATE TABLE `transaction_details` (
   `id` int(10) NOT NULL,
   `transactions_id` varchar(10) DEFAULT NULL,
   `kode_kasir` varchar(10) DEFAULT NULL,
-  `nama_pelanggan` varchar(10) DEFAULT NULL,
+  `nama_pelanggan` varchar(255) DEFAULT NULL,
   `kode_barang` varchar(10) DEFAULT NULL,
   `jumlah_barang` int(10) DEFAULT NULL,
   `gambar` varchar(255) NOT NULL,
@@ -267,16 +329,17 @@ CREATE TABLE `transaction_details` (
 --
 
 INSERT INTO `transaction_details` (`id`, `transactions_id`, `kode_kasir`, `nama_pelanggan`, `kode_barang`, `jumlah_barang`, `gambar`, `nama_barang`, `harga`, `created_at`, `updated_at`) VALUES
-(14, 'T01', 'K01', 'P01', 'B03', 2, 'adidas.png', 'Adidas', 500000, '2023-12-23 02:56:51', '2023-12-23 02:56:51'),
-(15, 'T02', 'K02', 'P02', 'B03', 2, 'adidas.png', 'Adidas', 500000, '2023-12-23 02:59:48', '2023-12-23 02:59:48'),
-(17, 'T02', 'K02', 'P02', 'B01', 1, 'sneakers.png', 'Sneakers', 110000, '2023-12-23 03:32:55', '2023-12-23 03:32:55'),
-(18, 'T02', 'K02', 'P02', 'B01', 2, 'sneakers.png', 'Sneakers', 220000, '2023-12-23 03:37:28', '2023-12-23 03:37:28'),
-(19, 'T03', 'K02', 'P03', 'B04', 2, '1702769600_converse.png', 'Converse', 240000, '2023-12-23 04:18:38', '2023-12-23 04:18:38'),
-(20, 'T04', 'K03', 'P03', 'B01', 2, 'sneakers.png', 'Sneakers', 220000, '2023-12-23 05:30:30', '2023-12-23 05:30:30'),
-(21, 'T05', 'K02', 'P02', 'B04', 3, '1702769600_converse.png', 'Converse', 360000, '2023-12-24 02:03:51', '2023-12-24 02:03:51'),
-(22, 'T06', 'K03', 'P03', 'B04', 2, '1702769600_converse.png', 'Converse', 240000, '2023-12-24 02:21:13', '2023-12-24 02:21:13'),
-(23, 'T04', 'K02', 'P01', 'B02', 3, 'nike.png', 'Nike', 450000, '2023-12-24 04:01:53', '2023-12-24 04:01:53'),
-(24, 'T08', 'K02', 'P01', 'B01', 2, 'sneakers.png', 'Sneakers', 220000, '2023-12-24 04:02:53', '2023-12-24 04:02:53');
+(14, 'T01', 'K01', 'Dono', 'B03', 2, 'adidas.png', 'Adidas', 500000, '2023-12-23 02:56:51', '2023-12-23 02:56:51'),
+(15, 'T02', 'K02', 'Doni', 'B03', 2, 'adidas.png', 'Adidas', 500000, '2023-12-23 02:59:48', '2023-12-23 02:59:48'),
+(17, 'T02', 'K02', 'Doni', 'B01', 1, 'sneakers.png', 'Sneakers', 110000, '2023-12-23 03:32:55', '2023-12-23 03:32:55'),
+(18, 'T02', 'K02', 'Dono', 'B01', 2, 'sneakers.png', 'Sneakers', 220000, '2023-12-23 03:37:28', '2023-12-23 03:37:28'),
+(19, 'T03', 'K02', 'Bobi', 'B04', 2, '1702769600_converse.png', 'Converse', 240000, '2023-12-23 04:18:38', '2023-12-23 04:18:38'),
+(20, 'T04', 'K03', 'Sakti', 'B01', 2, 'sneakers.png', 'Sneakers', 220000, '2023-12-23 05:30:30', '2023-12-23 05:30:30'),
+(21, 'T05', 'K02', 'Bayu', 'B04', 3, '1702769600_converse.png', 'Converse', 360000, '2023-12-24 02:03:51', '2023-12-24 02:03:51'),
+(22, 'T06', 'K03', 'Baya', 'B04', 2, '1702769600_converse.png', 'Converse', 240000, '2023-12-24 02:21:13', '2023-12-24 02:21:13'),
+(23, 'T04', 'K02', 'Sakti', 'B02', 3, 'nike.png', 'Nike', 450000, '2023-12-24 04:01:53', '2023-12-24 04:01:53'),
+(24, 'T08', 'K02', 'Sasa', 'B01', 2, 'sneakers.png', 'Sneakers', 220000, '2023-12-24 04:02:53', '2023-12-24 04:02:53'),
+(25, 'T09', 'K02', 'Budi', 'B04', 5, '1702769600_converse.png', 'Converse', 600000, '2023-12-26 02:16:12', '2023-12-26 02:16:12');
 
 --
 -- Triggers `transaction_details`
@@ -343,12 +406,11 @@ CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `usertype` int(11) NOT NULL DEFAULT 0,
+  `usertype` varchar(255) NOT NULL DEFAULT '0',
+  `alamat` varchar(255) DEFAULT NULL,
+  `nomor_hp` varchar(255) DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `two_factor_secret` text DEFAULT NULL,
-  `two_factor_recovery_codes` text DEFAULT NULL,
-  `two_factor_confirmed_at` timestamp NULL DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -358,24 +420,25 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `usertype`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin@admin.com', 1, NULL, '$2y$12$ZlJLlxgPSW/3cr9gMw9Kq.V8BKomRzkhlwG3ZCU8CKNSi.37URxdW', NULL, NULL, NULL, NULL, '2023-12-09 16:57:44', '2023-12-09 16:57:44'),
-(2, 'Raihan', 'user@gmail.com', 0, NULL, '$2y$12$t6/PR9n3yCzCM8GdM2eFl.ztyCgeijr6eMMOwO5ny8T4vPVs4qpeO', NULL, NULL, NULL, NULL, '2023-12-16 03:32:43', '2023-12-16 03:32:43');
+INSERT INTO `users` (`id`, `name`, `email`, `usertype`, `alamat`, `nomor_hp`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Raihan', 'rehan@gmail.com', '0', 'Jalan Pahlawan', '081234345252', NULL, '$2y$12$mEdihKdDQnGFUJZuy0/cS.Ggle5uOcTDzk.DhXd/SZmWAPcY1pAOK', NULL, '2023-12-25 17:43:26', '2023-12-25 17:43:26'),
+(2, 'User', 'user@gmail.com', '0', 'Jalan Pahlawan', '081223236543', NULL, '$2y$12$o4sbgMhPstOsSef64hkDc.2nIX8WyhGDY5wf2C0.rF7gkvp.jQYZW', NULL, '2023-12-25 17:55:10', '2023-12-25 17:55:10'),
+(3, 'admin', 'admin@gmail.com', '1', NULL, NULL, NULL, '$2y$12$gQo1hIXA94JUccKic7ymAOZXccF8Q5GdeQ8sU24/Y6XrVgo.VVlOS', NULL, '2023-12-25 18:08:45', '2023-12-25 18:08:45');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `cashiers`
+-- Indexes for table `carts`
 --
-ALTER TABLE `cashiers`
+ALTER TABLE `carts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `customers`
+-- Indexes for table `cashiers`
 --
-ALTER TABLE `customers`
+ALTER TABLE `cashiers`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -395,6 +458,19 @@ ALTER TABLE `incomes`
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `orders_order_id_unique` (`order_id`);
+
+--
+-- Indexes for table `order_details`
+--
+ALTER TABLE `order_details`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -458,16 +534,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `carts`
+--
+ALTER TABLE `carts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `cashiers`
 --
 ALTER TABLE `cashiers`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `customers`
---
-ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -479,13 +555,25 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `incomes`
 --
 ALTER TABLE `incomes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `order_details`
+--
+ALTER TABLE `order_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -503,19 +591,19 @@ ALTER TABLE `stocks`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `transaction_details`
 --
 ALTER TABLE `transaction_details`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
