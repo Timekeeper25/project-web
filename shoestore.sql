@@ -53,7 +53,7 @@ INSERT INTO `cashiers` (`id`, `kode_kasir`, `nama_kasir`, `jenis_kelamin`, `nomo
 
 CREATE TABLE `customers` (
   `id` int(11) NOT NULL,
-  `kode_pelanggan` varchar(10) NOT NULL,
+  `nama_pelanggan` varchar(10) NOT NULL,
   `nama_pelanggan` varchar(255) NOT NULL,
   `alamat_pelanggan` varchar(255) NOT NULL,
   `nomor_hp` varchar(15) NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `kode_pelanggan`, `nama_pelanggan`, `alamat_pelanggan`, `nomor_hp`, `created_at`, `updated_at`) VALUES
+INSERT INTO `customers` (`id`, `nama_pelanggan`, `nama_pelanggan`, `alamat_pelanggan`, `nomor_hp`, `created_at`, `updated_at`) VALUES
 (1, 'P01', 'Cindy Kasih', 'Jl.Sumatera', '081243560987', '2023-12-10 14:44:06', '2023-12-10 14:44:06');
 
 -- --------------------------------------------------------
@@ -252,7 +252,7 @@ CREATE TABLE `transaction_details` (
   `id` int(10) NOT NULL,
   `transactions_id` varchar(10) DEFAULT NULL,
   `kode_kasir` varchar(10) DEFAULT NULL,
-  `kode_pelanggan` varchar(10) DEFAULT NULL,
+  `nama_pelanggan` varchar(10) DEFAULT NULL,
   `kode_barang` varchar(10) DEFAULT NULL,
   `jumlah_barang` int(10) DEFAULT NULL,
   `gambar` varchar(255) NOT NULL,
@@ -266,7 +266,7 @@ CREATE TABLE `transaction_details` (
 -- Dumping data for table `transaction_details`
 --
 
-INSERT INTO `transaction_details` (`id`, `transactions_id`, `kode_kasir`, `kode_pelanggan`, `kode_barang`, `jumlah_barang`, `gambar`, `nama_barang`, `harga`, `created_at`, `updated_at`) VALUES
+INSERT INTO `transaction_details` (`id`, `transactions_id`, `kode_kasir`, `nama_pelanggan`, `kode_barang`, `jumlah_barang`, `gambar`, `nama_barang`, `harga`, `created_at`, `updated_at`) VALUES
 (14, 'T01', 'K01', 'P01', 'B03', 2, 'adidas.png', 'Adidas', 500000, '2023-12-23 02:56:51', '2023-12-23 02:56:51'),
 (15, 'T02', 'K02', 'P02', 'B03', 2, 'adidas.png', 'Adidas', 500000, '2023-12-23 02:59:48', '2023-12-23 02:59:48'),
 (17, 'T02', 'K02', 'P02', 'B01', 1, 'sneakers.png', 'Sneakers', 110000, '2023-12-23 03:32:55', '2023-12-23 03:32:55'),

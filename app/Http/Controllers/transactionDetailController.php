@@ -41,7 +41,7 @@ class transactionDetailController extends Controller
         $validasiData = $request->validate([
             'transactions_id' => 'required',
             'kode_kasir' => 'required',
-            'kode_pelanggan' => 'required',
+            'nama_pelanggan' => 'required',
             'kode_barang' => 'required',
             'jumlah_barang' => 'required',
         ]);
@@ -78,7 +78,7 @@ class transactionDetailController extends Controller
         $validasiData = $request->validate([
             'transactions_id' => 'required' . $id,
             'kode_kasir' => 'required',
-            'kode_pelanggan' => 'required',
+            'nama_pelanggan' => 'required',
             'kode_barang' => 'required',
             'jumlah_barang' => 'required',
             

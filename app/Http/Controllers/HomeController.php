@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use App\Models\Stock;
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\User;
 
 class HomeController extends Controller
@@ -79,6 +82,39 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
+    public function cash_order()
+    {
+        $user=Auth::user();
+        $userId=$user->id;
+        $data=Cart::where('id_user', '=', $userId)->get();
+        $order = Order::create([
+            'order_id' => Str::uuid()->toString(), 
+            'id_user' => $userId,
+            'status_pembayaran' => 'Dalam Proses' 
+        ]);
+        
+        foreach($data as $item)
+        {
+            $OrderDetail = new OrderDetail;
+            $OrderDetail->order_id = $order->order_id;
+
+            $OrderDetail->nama = $item->nama;
+            $OrderDetail->email = $item->email;
+            $OrderDetail->alamat = $item->alamat;
+            $OrderDetail->id_user = $item->id_user;
+            $OrderDetail->nama_barang = $item->nama_barang;
+            $OrderDetail->jumlah = $item->jumlah;
+            $OrderDetail->harga = $item->harga;
+            $OrderDetail->gambar = $item->gambar;
+
+            $OrderDetail->save();
+                        
+        }
+
+        Cart::where('id_user', '=', $userId)->delete();
+
+        return redirect()->back();
+    }
     /**
      * Create a new controller instance.
      *

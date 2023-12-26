@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class IncomesController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data['incomes'] = \App\Models\Incomes::paginate(5);
-        $data['judul'] = 'Data-Data Keuntungan';
-        return view('incomes_index', $data);
+        $data['order'] = \App\Models\Order::paginate(10);
+        $data['judul'] = 'Data-Data Transaksi Online';
+        return view('order_index', $data);
     }
 
     /**
@@ -21,13 +21,7 @@ class IncomesController extends Controller
      */
     public function create()
     {
-        $data['incomes'] = new \App\Models\Incomes();
-        $data['route'] = 'incomes.store';
-        $data['method'] = 'post';
-        $data['tombol'] = 'simpan';
-        $data['judul'] = 'Tambah Data Keuntungan';
-
-        return view('incomes_form', $data);
+        //
     }
 
     /**
@@ -35,7 +29,7 @@ class IncomesController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**
@@ -51,6 +45,7 @@ class IncomesController extends Controller
      */
     public function edit(string $id)
     {
+        //
     }
 
     /**
@@ -58,6 +53,7 @@ class IncomesController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        //
     }
 
     /**
@@ -65,5 +61,6 @@ class IncomesController extends Controller
      */
     public function destroy(string $id)
     {
+        //
     }
 }

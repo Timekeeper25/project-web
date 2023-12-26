@@ -24,10 +24,10 @@
                                 <span class="text-danger"> {{ $errors->first('kode_kasir') }}</span>
                             </div>
                             <div class="form-group mt-1">
-                                <label for="my-input">Kode Pelanggan</label>
-                                <input type="text" class="form-control" name="kode_pelanggan"
-                                value="{{ old('kode_pelanggan')}}">
-                                <span class="text-danger"> {{ $errors->first('kode_pelanggan') }}</span>
+                                <label for="my-input">Nama Pelanggan</label>
+                                <input type="text" class="form-control" name="nama_pelanggan"
+                                value="{{ old('nama_pelanggan')}}">
+                                <span class="text-danger"> {{ $errors->first('nama_pelanggan') }}</span>
                             </div>
                             <div class="form-group mt-1">
                                 <label for="my-input">Kode Barang</label>

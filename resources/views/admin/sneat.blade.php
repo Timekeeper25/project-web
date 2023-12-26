@@ -153,11 +153,6 @@
           </a>
         </li>
         <li class="menu-item">
-          <a href="{{ route('customer.index') }}" class="menu-link">
-            <div>Data Pelanggan</div>
-          </a>
-        </li>
-        <li class="menu-item">
           <a href="{{ route('incomes.index') }}" class="menu-link">
             <div>Data Keuntungan</div>
           </a>
@@ -165,6 +160,11 @@
         <li class="menu-item">
           <a href="{{ route('transaction.index') }}" class="menu-link">
             <div>Data Transaksi</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{{ route('order.index') }}" class="menu-link">
+            <div>Data Transaksi Online</div>
           </a>
         </li>
       </ul>
@@ -183,11 +183,6 @@
         <li class="menu-item">
           <a href="{{ route('cashier.create') }}" class="menu-link">
             <div>Tambah Data Kasir</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="{{ route('customer.create') }}" class="menu-link">
-            <div>Data Pelanggan</div>
           </a>
         </li>
         <li class="menu-item">

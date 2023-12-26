@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomesController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\transactionDetailController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderDetailController;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\AuthController;
@@ -29,15 +31,18 @@ route::get('/',[HomeController::class, 'index']);
 Route::post('add_cart/{id}', [HomeController::class, 'add_cart']);
 Route::get('show_cart', [HomeController::class, 'show_cart']);
 Route::get('remove_cart/{id}', [HomeController::class, 'remove_cart']);
+Route::get('cash_order', [HomeController::class, 'cash_order']);
 
 Auth::routes();
 
 Route::middleware(Authenticate::class)->group(function () {
     Route::resource('transactionDetail', transactionDetailController::class)->middleware(Admin::class);
     Route::get('transactionDetail/{transactions_id}', 'transactionDetailController@show')->name('transactionDetail.show');
+    Route::resource('orderDetail', OrderDetailController::class)->middleware(Admin::class);
+    Route::get('orderDetail/{order_id)}', 'OrderDetailController@show')->name('OrderDetail.show');
     Route::resource('stock', StockController::class)->middleware(Admin::class);
+    Route::resource('order', OrderController::class)->middleware(Admin::class);
     Route::resource('cashier', CashierController::class)->middleware(Admin::class);
-    Route::resource('customer', CustomerController::class)->middleware(Admin::class);
     Route::resource('incomes', IncomesController::class)->middleware(Admin::class);
     Route::resource('transaction', TransactionController::class)->middleware(Admin::class);
 });

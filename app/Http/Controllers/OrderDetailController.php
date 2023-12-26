@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 
-class IncomesController extends Controller
+class OrderDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data['incomes'] = \App\Models\Incomes::paginate(5);
-        $data['judul'] = 'Data-Data Keuntungan';
-        return view('incomes_index', $data);
+        //
     }
 
     /**
@@ -21,13 +20,7 @@ class IncomesController extends Controller
      */
     public function create()
     {
-        $data['incomes'] = new \App\Models\Incomes();
-        $data['route'] = 'incomes.store';
-        $data['method'] = 'post';
-        $data['tombol'] = 'simpan';
-        $data['judul'] = 'Tambah Data Keuntungan';
-
-        return view('incomes_form', $data);
+        //
     }
 
     /**
@@ -35,15 +28,16 @@ class IncomesController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $order_id)
     {
-        //
+        $OrderDetail = OrderDetail::with('order')->where('order_id', $order_id)->get();
+        return view('admin.order_details', compact('OrderDetail'));
     }
 
     /**
@@ -51,6 +45,7 @@ class IncomesController extends Controller
      */
     public function edit(string $id)
     {
+        //
     }
 
     /**
@@ -58,6 +53,7 @@ class IncomesController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        //
     }
 
     /**
@@ -65,5 +61,6 @@ class IncomesController extends Controller
      */
     public function destroy(string $id)
     {
+        //
     }
 }

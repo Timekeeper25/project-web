@@ -12,6 +12,10 @@
             </div>
             <div class="col-md-6">
                 <h1 style="font-weight: bold;">
+                   Nama Pelanggan 
+                </h1>
+                <h3 style="font-weight: 100;">{{ $item->nama_pelanggan }}</h3>
+                <h1 style="font-weight: bold;">
                    Nama Barang 
                 </h1>
                 <h3 style="font-weight: 100;">{{ $item->nama_barang }}</h3>
@@ -22,10 +26,11 @@
                 <h1 style="font-weight: bold;">
                    Total 
                 </h1>
-                <h3 style="font-weight: 100;">{{$item->harga}}</h3>
+                <h3 style="font-weight: 100;">Rp. {{ number_format($item->harga, 0, ',', '.') }}</h3>
             </div>
         </div>
     </div>
+    <br>
 </div>
 @endforeach
 @endsection

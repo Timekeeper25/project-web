@@ -39,7 +39,7 @@
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav">
                      <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{url('/redirect')}}">Home <span class="sr-only">(current)</span></a>
                      </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Pages <span class="caret"></span></a>
@@ -116,7 +116,7 @@
          </div>
          <div class="text-center mt-5">
             <h1 class="font-weight-bold mb-3">Lanjut Ke Pembayaran</h1>
-            <a href="" class="btn btn-danger"> Cash On Delivery </a>
+            <a href="{{ url('/cash_order') }}" class="btn btn-primary "> Cash On Delivery </a>
          </div>
      </div>
       
