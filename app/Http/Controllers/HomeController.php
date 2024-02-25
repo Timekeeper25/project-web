@@ -54,7 +54,7 @@ class HomeController extends Controller
             $cart->gambar = $stock->gambar_barang;
             $cart->kode_barang = $stock->kode_barang;
 
-            //quantity
+            //hitung quantity
             $cart->jumlah = $request->quantity;
 
             $cart->save();
