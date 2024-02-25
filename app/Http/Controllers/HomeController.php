@@ -41,7 +41,7 @@ class HomeController extends Controller
             $stock = Stock::find($id);
             $cart = new cart;
 
-            // masuk informasi user
+            // masukkan informasi user ke cart
             $cart->nama = $user->name;
             $cart->email = $user->email;
             $cart->alamat = $user->alamat;
