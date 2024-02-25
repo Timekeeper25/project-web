@@ -38,6 +38,7 @@ class HomeController extends Controller
         if(Auth::id()) 
         {
             $user = Auth::user();
+            // cek stok berdasarkan id barang
             $stock = Stock::find($id);
             $cart = new cart;
 
