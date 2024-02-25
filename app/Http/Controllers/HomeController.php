@@ -57,6 +57,7 @@ class HomeController extends Controller
             //hitung quantity
             $cart->jumlah = $request->quantity;
 
+            //simpan ke keranjang
             $cart->save();
             return redirect()->back();
 
