@@ -48,7 +48,7 @@ class HomeController extends Controller
             $cart->nomor_hp = $user->nomor_hp;
             $cart->id_user = $user->id;
             
-            //masuk informasi barang
+            //masukkan informasi barang ke cart
             $cart->nama_barang = $stock->nama_barang;
             $cart->harga = $stock->harga_barang * $request->quantity;
             $cart->gambar = $stock->gambar_barang;
