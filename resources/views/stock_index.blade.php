@@ -19,8 +19,8 @@
                                 <td>Stok Barang</td>
                                 <td>Harga Barang</td>
                                 <td>Modal Barang</td>
-                                <td>Created</td>
-                                <td>Updated</td>
+                                <td>Dibuat</td>
+                                <td>Diupdate</td>
                                 <td>Aksi</td>
                             </tr>
                         </thead>

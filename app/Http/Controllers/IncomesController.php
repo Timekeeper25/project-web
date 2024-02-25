@@ -25,7 +25,7 @@ class IncomesController extends Controller
         $data['route'] = 'incomes.store';
         $data['method'] = 'post';
         $data['tombol'] = 'simpan';
-        $data['judul'] = 'Tambah Data Keuntungan';
+        $data['judul'] = 'Data Keuntungan';
 
         return view('incomes_form', $data);
     }
